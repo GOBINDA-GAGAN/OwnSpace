@@ -1,21 +1,16 @@
 {
-  "name": "ownspace",
+  "name": "01_intro-to-express",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/GOBINDA-GAGAN/OwnSpace.git"
+    "dev": "node --watch app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
-  "bugs": {
-    "url": "https://github.com/GOBINDA-GAGAN/OwnSpace/issues"
-  },
-  "homepage": "https://github.com/GOBINDA-GAGAN/OwnSpace#readme"
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
 }
