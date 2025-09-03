@@ -1,5 +1,6 @@
 import { log } from "console";
 import express from "express";
+import { createWriteStream } from "fs";
 import { readdir, rm } from "fs/promises";
 const app = express();
 console.log(app);
@@ -55,6 +56,19 @@ app.patch("/:filename", async(req, res) => {
     console.log(error.message);
   }
 });
+app.post("/:filename",(req,res)=>{
+  console.log(req.params);
+
+  const writeStream=createWriteStream(`./storage/${req.params.filename}`)
+  req.pipe(writeStream);
+  req.on('end',()=>{
+res.json({message:"file uploaded successfully"})
+  })
+  
+})
+
+
+
 
 app.get("/", async (req, res) => {
   const fileList = await readdir("./storage");
