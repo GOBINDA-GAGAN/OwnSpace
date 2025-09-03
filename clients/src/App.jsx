@@ -47,7 +47,7 @@ function App() {
   }
 
   async function saveFilename(oldFilename) {
-    setNewFilename(oldFilename);
+    // use the current value of newFilename for PATCH
     const response = await fetch(`${URL}${oldFilename}`, {
       method: "PATCH",
       headers: {
@@ -57,10 +57,12 @@ function App() {
     });
     const data = await response.text();
     console.log(data);
-    setNewFilename("");
-    getDirectoryItems();
-  }
 
+    getDirectoryItems();
+
+    // clears the input field
+    setNewFilename("");
+  }
   return (
     <>
       <h1>My Files</h1>
