@@ -2,6 +2,7 @@ import express from "express";
 import { createWriteStream, statSync } from "fs";
 import { readdir, rm, stat } from "fs/promises";
 import cors from "cors"
+import { dirname } from "path";
 const app = express();
 console.log(app);
 app.use(express.json())
@@ -63,12 +64,16 @@ res.json({message:"file uploaded successfully"})
 
 
 
-app.get("/directory", async (req, res) => {
-  const fileList = await readdir("./storage");
+app.get("/directory/:dirPath?", async(req, res) => {
+  const {dirPath}=req.params;
+  console.log(dirPath);
+  const fullDirPath=`./storage/${dirPath?dirPath:''}`
+  
+  const fileList = await readdir(fullDirPath);
   const data=[];
   for(const item of fileList){
 
-    const stats= await statSync(`./storage/${item}`);
+    const stats= await stat(fullDirPath);
     data.push({name:item,isDirectory:stats.isDirectory()})
   }
   

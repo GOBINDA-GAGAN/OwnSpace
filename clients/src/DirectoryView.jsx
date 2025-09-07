@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import { useParams } from "react-router-dom";
 
 function DirectoryView() {
   const BASE_URL = "http://localhost:4000";
   const [directoryItems, setDirectoryItems] = useState([]);
   const [progress, setProgress] = useState(0);
   const [newFilename, setNewFilename] = useState("");
+  const {"*":dirPath}=useParams();
+ 
+  
 
   async function getDirectoryItems() {
-    const response = await fetch(`${BASE_URL}/directory`);
+    const response = await fetch(`${BASE_URL}/directory/${dirPath}`);
     const data = await response.json();
     setDirectoryItems(data);
   }
