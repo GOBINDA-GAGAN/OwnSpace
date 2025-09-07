@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
-  const URL = "http://localhost:4000/";
+  const BASE_URL = "http://localhost:4000";
   const [directoryItems, setDirectoryItems] = useState([]);
   const [progress, setProgress] = useState(0);
   const [newFilename, setNewFilename] = useState("");
 
   async function getDirectoryItems() {
-    const response = await fetch(URL);
+    const response = await fetch(`${BASE_URL}/directory`);
     const data = await response.json();
     setDirectoryItems(data);
   }
@@ -19,7 +19,7 @@ function App() {
   async function uploadFile(e) {
     const file = e.target.files[0];
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", `${URL}${file.name}`, true);
+    xhr.open("POST", `${BASE_URL}/files/${file.name}`, true);
     xhr.addEventListener("load", () => {
       console.log(xhr.response);
       getDirectoryItems();
@@ -32,7 +32,7 @@ function App() {
   }
 
   async function handleDelete(filename) {
-    const response = await fetch(`${URL}${filename}`, {
+    const response = await fetch(`${BASE_URL}/files/${filename}`, {
       method: "DELETE",
     });
     const data = await response.text();
@@ -47,7 +47,7 @@ function App() {
 
   async function saveFilename(oldFilename) {
     // use the current value of newFilename for PATCH
-    const response = await fetch(`${URL}${oldFilename}`, {
+    const response = await fetch(`${BASE_URL}/files/${oldFilename}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -72,10 +72,10 @@ function App() {
         value={newFilename}
       />
       <p>Progress: {progress}%</p>
-      {directoryItems.map((item, i) => (
+      {directoryItems.map(({name:item}, i) => (
         <div key={i}>
-          {item} <a href={`${URL}${item}?action=open`}>Open</a>{" "}
-          <a href={`${URL}${item}?action=download`}>Download</a>
+          {item} <a href={`${BASE_URL}/files/${item}?action=open`}>Open</a>{" "}
+          <a href={`${BASE_URL}${item}?action=download`}>Download</a>
           <button onClick={() => renameFile(item)}>Rename</button>
           <button onClick={() => saveFilename(item)}>Save</button>
           <button

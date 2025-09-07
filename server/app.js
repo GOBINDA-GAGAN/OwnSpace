@@ -1,22 +1,15 @@
-import { log } from "console";
 import express from "express";
-import { createWriteStream } from "fs";
-import { readdir, rm } from "fs/promises";
+import { createWriteStream, statSync } from "fs";
+import { readdir, rm, stat } from "fs/promises";
+import cors from "cors"
 const app = express();
 console.log(app);
 app.use(express.json())
 
 const port = 4000;
-app.use((req, res, next) => {
-  res.set({
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "*",
-    "Access-Control-Allow-Headers": "*",
-  });
-  next();
-});
+app.use(cors());
 
-app.get("/:filename", (req, res) => {
+app.get("/files/:filename", (req, res) => {
   try {
     const { filename } = req.params;
     if (req.params.action === "download") {
@@ -28,7 +21,7 @@ app.get("/:filename", (req, res) => {
     console.log(error.message);
   }
 });
-app.delete("/:filename", async(req, res) => {
+app.delete("/files/:filename", async(req, res) => {
   try {
     const { filename } = req.params;
     console.log(filename);
@@ -44,7 +37,7 @@ app.delete("/:filename", async(req, res) => {
   }
 });
 
-app.patch("/:filename", async(req, res) => {
+app.patch("/files/:filename", async(req, res) => {
   try {
     const { filename } = req.params;
     const {newFilename}=req.body;
@@ -56,7 +49,7 @@ app.patch("/:filename", async(req, res) => {
     console.log(error.message);
   }
 });
-app.post("/:filename",(req,res)=>{
+app.post("/files/:filename",(req,res)=>{
   console.log(req.params);
 
   const writeStream=createWriteStream(`./storage/${req.params.filename}`)
@@ -70,9 +63,17 @@ res.json({message:"file uploaded successfully"})
 
 
 
-app.get("/", async (req, res) => {
+app.get("/directory", async (req, res) => {
   const fileList = await readdir("./storage");
-  res.json(fileList);
+  const data=[];
+  for(const item of fileList){
+
+    const stats= await statSync(`./storage/${item}`);
+    data.push({name:item,directory:stats.isDirectory()})
+  }
+  
+
+  res.json(data);
 });
 
 app.listen(port, () => {
