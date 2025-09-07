@@ -69,7 +69,7 @@ app.get("/directory", async (req, res) => {
   for(const item of fileList){
 
     const stats= await statSync(`./storage/${item}`);
-    data.push({name:item,directory:stats.isDirectory()})
+    data.push({name:item,isDirectory:stats.isDirectory()})
   }
   
 
