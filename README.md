@@ -11,6 +11,15 @@ The main goal of **CloudHub** is to offer users a seamless experience in managin
 
 ---
 
+
+## 🏠 Home Page Preview
+![CloudHub Home Page](https://res.cloudinary.com/donigot3r/image/upload/v1760523472/Screenshot_2025-10-15_154652_w7dhxc.png)
+
+*(Screenshot of the CloudHub homepage — modern, clean, and responsive UI)*
+
+
+-----
+
 ## Features
 - Secure and reliable user authentication  
 - Intuitive and responsive interface  
