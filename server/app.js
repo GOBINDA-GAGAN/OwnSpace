@@ -1,86 +1,22 @@
 import express from "express";
-import { createWriteStream, statSync } from "fs";
-import { readdir, rm, stat } from "fs/promises";
-import cors from "cors"
-import { dirname } from "path";
-const app = express();
-console.log(app);
-app.use(express.json())
+import cors from "cors";
+import directoryRoutes from "./routes/directoryRoutes.js";
+import fileRoutes from "./routes/fileRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 
-const port = 4000;
+const app = express();
+
+app.use(express.json());
 app.use(cors());
 
-app.get("/files/:filename", (req, res) => {
-  try {
-    const { filename } = req.params;
-    if (req.params.action === "download") {
-      res.set("Content-Disposition", "attachment");
-    }
+app.use("/directory", directoryRoutes);
+app.use("/file", fileRoutes);
+app.use("/auth/user", userRoutes);
 
-    res.sendFile(`${import.meta.dirname}/storage/${filename}`);
-  } catch (error) {
-    console.log(error.message);
-  }
-});
-app.delete("/files/:filename", async(req, res) => {
-  try {
-    const { filename } = req.params;
-    console.log(filename);
-    const filePath = `${import.meta.dirname}/storage/${filename}`;
-    try {
-      await rm(filePath);
-      res.json({ message: "file deleted" });
-    } catch (error) {
-      console.log(error.message);
-    }
-  } catch (error) {
-    console.log(error.message);
-  }
+app.use((err, req, res, next) => {
+  res.status(err.status || 500).json({ message: "Something went wrong!" });
 });
 
-app.patch("/files/:filename", async(req, res) => {
-  try {
-    const { filename } = req.params;
-    const {newFilename}=req.body;
-    console.log(newFilename);
-    
-    console.log(filename);
-    
-  } catch (error) {
-    console.log(error.message);
-  }
-});
-app.post("/files/:filename",(req,res)=>{
-  console.log(req.params);
-
-  const writeStream=createWriteStream(`./storage/${req.params.filename}`)
-  req.pipe(writeStream);
-  req.on('end',()=>{
-res.json({message:"file uploaded successfully"})
-  })
-  
-})
-
-
-
-
-app.get("/directory/:dirPath?", async(req, res) => {
-  const {dirPath}=req.params;
-  console.log(dirPath);
-  const fullDirPath=`./storage/${dirPath?dirPath:''}`
-  
-  const fileList = await readdir(fullDirPath);
-  const data=[];
-  for(const item of fileList){
-
-    const stats= await stat(fullDirPath);
-    data.push({name:item,isDirectory:stats.isDirectory()})
-  }
-  
-
-  res.json(data);
-});
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.listen(4000, () => {
+  console.log(`Server Started`);
 });

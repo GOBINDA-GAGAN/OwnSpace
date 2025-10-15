@@ -1,0 +1,33 @@
+# 🌩️ CloudHub
+
+## Introduction
+Welcome to **CloudHub**, a modern and user-friendly platform designed to simplify and centralize cloud-based solutions.  
+This document provides an overview of the project, its purpose, and its key features.
+
+---
+
+## Objective
+The main goal of **CloudHub** is to offer users a seamless experience in managing data, connecting services, and enabling faster collaboration in the cloud environment.
+
+---
+
+## Features
+- Secure and reliable user authentication  
+- Intuitive and responsive interface  
+- Real-time data management  
+- API-driven architecture  
+- Scalable and maintainable system design  
+
+---
+
+## Technology Stack
+| Layer | Technology Used |
+|-------|-----------------|
+| Frontend | HTML, CSS, JavaScript (React) |
+| Backend | Node.js, Express.js |
+| Database | MongoDB |
+| Hosting | Cloud-based deployment (e.g., Render, Vercel, or AWS) |
+
+---
+
+## Project Structure
