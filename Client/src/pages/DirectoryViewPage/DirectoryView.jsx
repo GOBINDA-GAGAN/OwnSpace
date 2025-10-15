@@ -5,6 +5,7 @@ import RenameModal from "../../components/RenameModal";
 import DirectoryHeader from "../../components/DirectoryHeader"
 import DirectoryList from "../../components/DirectoryList";
 import "./DirectoryView.css";
+import NoDataMessage from "../../components/NoDataMessage";
 
 function DirectoryView() {
   const BASE_URL = "http://localhost:4000";
@@ -330,7 +331,7 @@ function DirectoryView() {
   ];
 
   return (
-    <div className="directory-view">
+    <div className="">
       <DirectoryHeader
         directoryName={directoryName}
         onCreateFolderClick={() => setShowCreateDirModal(true)}
@@ -338,6 +339,7 @@ function DirectoryView() {
         fileInputRef={fileInputRef}
         handleFileSelect={handleFileSelect}
       />
+    
 
       {/* Create Directory Modal */}
       {showCreateDirModal && (
@@ -362,10 +364,7 @@ function DirectoryView() {
 
       {/* If folder is empty */}
       {combinedItems.length === 0 ? (
-        <p className="no-data-message">
-          This folder is empty. Upload files or create a folder to see some
-          data.
-        </p>
+       <NoDataMessage/>
       ) : (
         <DirectoryList
           items={combinedItems}

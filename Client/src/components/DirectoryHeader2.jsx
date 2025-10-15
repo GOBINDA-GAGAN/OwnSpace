@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { FaFolderPlus, FaUpload } from "react-icons/fa";
 
 function DirectoryHeader2({

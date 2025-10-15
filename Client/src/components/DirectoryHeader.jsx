@@ -2,9 +2,14 @@
 import { AiOutlinePlus } from "react-icons/ai";
 import { LuUpload } from "react-icons/lu";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
-import { FaFilePdf, FaSignature, FaPen } from "react-icons/fa";
+import { FaFilePdf, FaSignature, FaPen,} from "react-icons/fa";
 
-export default function DirectoryHeader({ onCreateFolderClick }) {
+export default function DirectoryHeader({
+  onCreateFolderClick,
+  onUploadFilesClick,
+  fileInputRef,
+  handleFileSelect,
+}) {
   return (
     <div className="flex flex-wrap justify-between gap-3 p-4 bg-gray-50 rounded-xl shadow-sm">
       {/* Create */}
@@ -19,15 +24,33 @@ export default function DirectoryHeader({ onCreateFolderClick }) {
       </button>
 
       {/* Upload or Drop */}
-      <button className="flex flex-col items-start justify-center w-[150px] sm:w-[180px] h-[80px] px-5 py-4 rounded-xl shadow-sm border border-gray-200 bg-gradient-to-r from-gray-100 to-gray-50 hover:from-gray-200 hover:to-gray-100 text-gray-900 transition-all duration-200">
+
+        
+      <div>
+      <button
+        onClick={onUploadFilesClick}
+        className="flex flex-col items-start justify-center w-[150px] sm:w-[180px] h-[80px] px-5 py-4 rounded-xl shadow-sm border border-gray-200 bg-gradient-to-r from-gray-100 to-gray-50 hover:from-gray-200 hover:to-gray-100 text-gray-900 transition-all duration-200"
+      >
         <div className="text-lg">
           <LuUpload size={20} />
         </div>
         <span className="text-sm font-medium">Upload or Drop</span>
       </button>
 
+      <input
+        ref={fileInputRef}
+        id="file-upload"
+        type="file"
+        style={{ display: "none" }}
+        multiple
+        onChange={handleFileSelect}
+      />
+    </div>
+
       {/* Create Folder */}
-      <button className="flex flex-col items-start justify-center w-[150px] sm:w-[180px] h-[80px] px-5 py-4 rounded-xl shadow-sm border border-gray-200 bg-gradient-to-r from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 text-blue-800 transition-all duration-200">
+      <button 
+      onClick={onCreateFolderClick}
+      className="flex flex-col items-start justify-center w-[150px] sm:w-[180px] h-[80px] px-5 py-4 rounded-xl shadow-sm border border-gray-200 bg-gradient-to-r from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 text-blue-800 transition-all duration-200">
         <div className="text-lg">
           <MdOutlineCreateNewFolder size={20} />
         </div>
