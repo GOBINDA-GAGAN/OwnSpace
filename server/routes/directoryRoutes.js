@@ -56,6 +56,8 @@ router.patch('/:id', async (req, res, next) => {
 })
 
 router.delete("/:id", async (req, res, next) => {
+  console.log("here");
+  
   const {id} = req.params
   try {
     const dirIndex = directoriesData.findIndex((directory) => directory.id === id)

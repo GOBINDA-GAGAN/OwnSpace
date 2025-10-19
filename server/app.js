@@ -11,7 +11,7 @@ app.use(cors());
 
 app.use("/directory", directoryRoutes);
 app.use("/file", fileRoutes);
-app.use("/auth/user", userRoutes);
+app.use("/auth", userRoutes);
 
 app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ message: "Something went wrong!" });

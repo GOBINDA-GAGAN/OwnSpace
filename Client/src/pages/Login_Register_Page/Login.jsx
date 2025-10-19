@@ -36,7 +36,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${BASE_URL}/auth/user/login`, {
+      const response = await fetch(`${BASE_URL}/auth/login`, {
         method: "POST",
         body: JSON.stringify(formData),
         headers: {
@@ -46,7 +46,7 @@ const Login = () => {
 
       const data = await response.json();
       console.log(data);
-      
+
       if (data.error) {
         // If there's an error, set the serverError message
         setServerError(data.error);
@@ -64,7 +64,10 @@ const Login = () => {
   const hasError = Boolean(serverError);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-2">
+    <div
+      className="min-h-screen flex items-center justify-center 
+  bg-[url('/field-bright-yellow-rapeseed-spring.jpg')] bg-cover bg-center bg-no-repeat px-2"
+    >
       <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-md">
         <div className="flex items-center justify-center mb-6">
           <div className="flex items-center space-x-2">

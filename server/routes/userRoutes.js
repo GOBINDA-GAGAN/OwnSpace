@@ -8,9 +8,7 @@ const router = express.Router();
 //register-route
 router.post('/register', async (req, res, next) => {
   const {name, email, password} = req.body
-
   const foundUser = usersData.find((user) => user.email === email)
-  console.log(foundUser);
   if(foundUser) {
     return res.status(409).json({
       error: "User already exists",

@@ -1,9 +1,1 @@
-[
-    {
-        "id": "6cdfe7e3-6627-4314-9e86-9c3aaa3da43d",
-        "name": "Anurag Singh",
-        "email": "anurag@gmail.com",
-        "password": "abcd",
-        "rootDirId": "b0eb2755-5412-452a-99c2-7fd3717629dc"
-    }
-]
+[{"id":"0b06a20a-ec3d-4d2f-a957-1b1af0907801","name":"Anurag Singh","email":"anurag@gmail.com","password":"abcd","rootDirId":"fe1dbec1-9c9c-4314-b0bf-b94fc8b3458a"},{"id":"8555a0fc-b266-4845-96e2-2484ab04b334","name":"Anurag Singh","email":"gobinda@gmail.com","password":"abcd","rootDirId":"0987c512-5389-4aae-9be6-3bfffe23d594"}]
